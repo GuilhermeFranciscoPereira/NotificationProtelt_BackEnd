@@ -49,6 +49,11 @@
 ## 🛈 Como o projeto está estruturado
 
 - `./src/assets:` Onde está todas as fotos e arquivos estáticos que vão ser usadas no projeto.
+- `./src/controllers:` Responsáveis pela lógica de cada rota.
+- `./src/database:` Pasta responsável pelo banco de dados, como conexão e uma função reutilizavel para acessar o banco de dados.
+- `./src/repositories:` Responsável por abstrair a lógica de acesso ao banco de dados, centralizando as operações de leitura e escrita, e fornecendo métodos para interagir com as entidades do banco de forma estruturada e reutilizável.
+- `./src/routes:` Rotas da nossa aplicação (Get, GetByID, Post, Patch e Delete).
+- `server.js:` Nosso arquivo "index" onde fica o inicio do servidor.
 
 #
 
