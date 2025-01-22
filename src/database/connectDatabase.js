@@ -18,9 +18,9 @@ db.connect((error) => {
     } else {
         console.log('Conexão bem-sucedida com o banco de dados!');
     }
-  });
+});
 
-const databaseQuery = (sqlMethod, mensagemReject, values = '') => {
+const databaseQuery = (sqlMethod, values = '') => {
     return new Promise((resolve, reject) => {
         db.query(sqlMethod, values, (error, result) => {
             if (error) {
