@@ -12,7 +12,8 @@ class NotificationController {
             const dataResult = await notificationRepository.findAll();
             res.status(200).json(dataResult)
         } catch (error) {
-            res.status(500).json({message: error})
+            console.log({ message: `Erro ao buscar todas as infrações: ${error}`});
+            res.status(500).json({ message: `Erro ao buscar todas as infrações: ${error}`});
         }
     }
     
@@ -25,7 +26,19 @@ class NotificationController {
             await notificationRepository.create(allDatas);
             res.status(201).json({ message: 'Infração cadastrada com sucesso!'});
         } catch (error) {
-            res.status(500).json({ message: error});
+            console.log({ message: `Erro ao cadastrar nova infração: ${error}`});
+            res.status(500).json({ message: `Erro ao cadastrar nova infração: ${error}`});
+        }
+    }
+
+    async showById(req, res) {
+        const { autoDaInfracao } = req.params;
+        try {
+            const query = await notificationRepository.findById(autoDaInfracao);
+            res.status(200).json(query);
+        } catch (error) {
+            console.error(`Erro ao buscar a infração: ${error}`);
+            res.status(500).json({ message: `Erro ao buscar a infração: ${error}`});
         }
     }
 
@@ -35,8 +48,8 @@ class NotificationController {
             const query = await notificationRepository.findByPlate(placa);
             res.status(200).json(query);
         } catch (error) {
-            console.error("Erro ao buscar infrações:", error);
-            res.status(500).json({ message: "Erro ao buscar infrações." });
+            console.error(`Erro ao buscar infrações: ${error}`);
+            res.status(500).json({ message: `Erro ao buscar infrações: ${error}`});
         }
     }
 }

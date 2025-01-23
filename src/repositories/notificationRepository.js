@@ -11,6 +11,11 @@ class NotificationRepository {
         return databaseQuery(sqlMethod, allDatas);
     }
 
+    findById(autoDaInfracao) {
+        const sqlMethod = "SELECT * FROM infractions WHERE autoDaInfracao = ?"
+        return databaseQuery(sqlMethod, autoDaInfracao)
+    }
+
     findByPlate(plates) {
         const sqlMethod = "SELECT * FROM infractions WHERE placa = ?"
         return databaseQuery(sqlMethod, plates)
