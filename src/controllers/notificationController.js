@@ -29,6 +29,16 @@ class NotificationController {
         }
     }
 
+    async showByPlate(req, res) {
+        const { placa } = req.params;
+        try {
+            const query = await notificationRepository.findByPlate(placa);
+            res.status(200).json(query);
+        } catch (error) {
+            console.error("Erro ao buscar infrações:", error);
+            res.status(500).json({ message: "Erro ao buscar infrações." });
+        }
+    }
 }
 
 export default new NotificationController();

@@ -7,11 +7,14 @@ class NotificationRepository {
     }
 
     create(allDatas) {
-        console.log(`Dados: ${allDatas}`)
         const sqlMethod = 'INSERT INTO infractions (placa, municipio, uf, marcaModelo, cor, especieTipo, localDaInfracao, nomeCondutor, proprietario, quadraLote, naturezaDoVeiculo, grauDaInfracao, medicaoRealizadaKMH, dataHoraDaInfracao, valor, fotoInfracao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         return databaseQuery(sqlMethod, allDatas);
     }
 
+    findByPlate(plates) {
+        const sqlMethod = "SELECT * FROM infractions WHERE placa = ?"
+        return databaseQuery(sqlMethod, plates)
+    }
 }
 
 export default new NotificationRepository();

@@ -31,12 +31,16 @@
 - Node.js
 - Express.js
 - DotEnv
-- MySQL WorkBench / NPM
+- Express-fileupload
+- Multer
+- MySQL NPM / WorkBench
 
 ## Versões utilizadas:
 - Node.js: 20.15.1
 - Express.js: 4.21.2
 - DotEnv: 16.4.7
+- Express-fileupload: 1.5.1
+- Multer: 1.4.5-lts.1
 - MySQL npm: 2.18.1
 - MySQL WorkBench : 8.0.40
 
