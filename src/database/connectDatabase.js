@@ -1,5 +1,5 @@
-import mysql from 'mysql';
 import dotenv from 'dotenv';
+import mysql from 'mysql';
 
 dotenv.config({path: '../.env'});
 
@@ -26,8 +26,8 @@ const databaseQuery = (sqlMethod, values = '') => {
             if (error) {
                 return reject(mensagemReject);
             }
-            const resultData = JSON.parse(JSON.stringify(result))
-            return resolve(resultData)
+            const resultData = JSON.parse(JSON.stringify(result));
+            return resolve(resultData);
         });
     });
 }

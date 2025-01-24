@@ -1,12 +1,11 @@
 import notificationRepository from "../repositories/notificationRepository.js";
-import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 class NotificationController {
-
     async index(req, res) {
         try {
             const dataResult = await notificationRepository.findAll();
@@ -18,9 +17,11 @@ class NotificationController {
     }
     
     async store(req, res) {
-        const { placa = "-", municipio = "-", uf = "-", marcaModelo = "-", cor = "-", especieTipo = "-", localDaInfracao = "-", nomeCondutor = "-", proprietario = "-", quadraLote = "-", naturezaDoVeiculo = "-", grauDaInfracao = "-", medicaoRealizadaKMH = "-", dataHoraDaInfracao = "-", valor = "-", fotoInfracao = "-"} = req.body;
-        const nomeFotoInfracao = req.files.fotoInfracao[0].name || "-";
-        const allDatas = [placa, municipio, uf, marcaModelo, cor, especieTipo, localDaInfracao, nomeCondutor, proprietario, quadraLote, naturezaDoVeiculo, grauDaInfracao, medicaoRealizadaKMH, dataHoraDaInfracao, valor, nomeFotoInfracao];
+        let { placa, dataEnvio, municipio, uf, marcaModelo, cor, especieTipo, localDaInfracao, nomeCondutor, proprietario, quadraLote, naturezaDoVeiculo, medicaoRealizadaKMH, dataHoraDaInfracao, valor} = req.body;
+        const nomeFotoInfracao = req.files.fotoInfracao[0].name || " -- ";
+        const dataEnvioString = dataEnvio || null;
+        
+        const allDatas = [placa, dataEnvioString, municipio, uf, marcaModelo, cor, especieTipo, localDaInfracao, nomeCondutor, proprietario, quadraLote, naturezaDoVeiculo, medicaoRealizadaKMH, dataHoraDaInfracao, valor, nomeFotoInfracao];
         try {
             req.files.fotoInfracao[0].mv(join(__dirname, '../../../notificationprotelt-frontend/public/uploads', `${placa}${nomeFotoInfracao}`));
             await notificationRepository.create(allDatas);
