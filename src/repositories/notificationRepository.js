@@ -6,13 +6,7 @@ class NotificationRepository {
         const sqlMethod = "SELECT * FROM infractions";
         return databaseQuery(sqlMethod);
     }
-
-    // POST
-    create(allDatas) {
-        const sqlMethod = 'INSERT INTO infractions (placa, dataEnvio, municipio, uf, marcaModelo, cor, especieTipo, localDaInfracao, nomeCondutor, proprietario, quadraLote, naturezaDoVeiculo, medicaoRealizadaKMH, dataHoraDaInfracao, valor, fotoInfracao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        return databaseQuery(sqlMethod, allDatas);
-    }
-
+    
     // GET BY ID ( autoDaInfracao )
     findById(autoDaInfracao) {
         const sqlMethod = "SELECT * FROM infractions WHERE autoDaInfracao = ?"
@@ -24,6 +18,26 @@ class NotificationRepository {
         const sqlMethod = "SELECT * FROM infractions WHERE placa = ?"
         return databaseQuery(sqlMethod, plates)
     }
+
+    // GET BY SPEED RANGE FILTER
+    filterBySpeedRange(minSpeed, maxSpeed, plate) {
+        let sqlMethod = `SELECT * FROM infractions WHERE medicaoRealizadaKMH BETWEEN ? AND ?`;
+        let params = [minSpeed, maxSpeed];
+
+        if (plate) {
+            sqlMethod += ' AND placa = ?';
+            params.push(plate);
+        }
+
+        return databaseQuery(sqlMethod, params);
+    }
+
+    // POST
+    create(allDatas) {
+        const sqlMethod = 'INSERT INTO infractions (placa, dataEnvio, municipio, uf, marcaModelo, cor, especieTipo, localDaInfracao, nomeCondutor, proprietario, quadraLote, naturezaDoVeiculo, medicaoRealizadaKMH, dataHoraDaInfracao, valor, fotoInfracao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        return databaseQuery(sqlMethod, allDatas);
+    }
+
 
     // PATCH TO UPDATE FIELDS
     updateById(autoDaInfracao, updatedFields) {

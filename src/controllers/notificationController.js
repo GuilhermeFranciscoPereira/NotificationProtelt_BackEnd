@@ -17,6 +17,42 @@ class NotificationController {
         }
     }
     
+    // GET BY ID ( autoDaInfracao )
+    async showById(req, res) {
+        const { autoDaInfracao } = req.params;
+        try {
+            const query = await notificationRepository.findById(autoDaInfracao);
+            res.status(200).json(query);
+        } catch (error) {
+            console.error(`Erro ao buscar a infração: ${error}`);
+            res.status(500).json({ message: `Erro ao buscar a infração: ${error}`});
+        }
+    }
+    
+    // GET BY PLATE
+    async showByPlate(req, res) {
+        const { placa } = req.params;
+        try {
+            const query = await notificationRepository.findByPlate(placa);
+            res.status(200).json(query);
+        } catch (error) {
+            console.error(`Erro ao buscar infrações: ${error}`);
+            res.status(500).json({ message: `Erro ao buscar infrações: ${error}`});
+        }
+    }
+
+    // GET BY SPEED RANGE
+    async filterBySpeed(req, res) {
+        const { minSpeed, maxSpeed, plate } = req.body;
+        try {
+          const query = await notificationRepository.filterBySpeedRange(minSpeed, maxSpeed, plate);
+          return res.status(200).json(query);
+        } catch (error) {
+          console.error(`Erro ao filtrar infrações: ${error}`);
+          return res.status(500).json({ message: `Erro ao filtrar infrações: ${error}` });
+        }
+    }
+
     // POST
     async store(req, res) {
         let { placa, dataEnvio, municipio, uf, marcaModelo, cor, especieTipo, localDaInfracao, nomeCondutor, proprietario, quadraLote, naturezaDoVeiculo, medicaoRealizadaKMH, dataHoraDaInfracao, valor} = req.body;
@@ -33,31 +69,7 @@ class NotificationController {
             res.status(500).json({ message: `Erro ao cadastrar nova infração: ${error}`});
         }
     }
-
-    // GET BY ID ( autoDaInfracao )
-    async showById(req, res) {
-        const { autoDaInfracao } = req.params;
-        try {
-            const query = await notificationRepository.findById(autoDaInfracao);
-            res.status(200).json(query);
-        } catch (error) {
-            console.error(`Erro ao buscar a infração: ${error}`);
-            res.status(500).json({ message: `Erro ao buscar a infração: ${error}`});
-        }
-    }
-
-    // GET BY PLATE
-    async showByPlate(req, res) {
-        const { placa } = req.params;
-        try {
-            const query = await notificationRepository.findByPlate(placa);
-            res.status(200).json(query);
-        } catch (error) {
-            console.error(`Erro ao buscar infrações: ${error}`);
-            res.status(500).json({ message: `Erro ao buscar infrações: ${error}`});
-        }
-    }
-
+    
     // PATCH TO UPDATE FIELDS
     async update(req, res) {
         const { autoDaInfracao } = req.params;
