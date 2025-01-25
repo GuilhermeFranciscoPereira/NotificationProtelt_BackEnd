@@ -6,6 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 class NotificationController {
+    // GET ALL
     async index(req, res) {
         try {
             const dataResult = await notificationRepository.findAll();
@@ -16,6 +17,7 @@ class NotificationController {
         }
     }
     
+    // POST
     async store(req, res) {
         let { placa, dataEnvio, municipio, uf, marcaModelo, cor, especieTipo, localDaInfracao, nomeCondutor, proprietario, quadraLote, naturezaDoVeiculo, medicaoRealizadaKMH, dataHoraDaInfracao, valor} = req.body;
         const nomeFotoInfracao = req.files.fotoInfracao[0].name || " -- ";
@@ -32,6 +34,7 @@ class NotificationController {
         }
     }
 
+    // GET BY ID ( autoDaInfracao )
     async showById(req, res) {
         const { autoDaInfracao } = req.params;
         try {
@@ -43,6 +46,7 @@ class NotificationController {
         }
     }
 
+    // GET BY PLATE
     async showByPlate(req, res) {
         const { placa } = req.params;
         try {
@@ -53,6 +57,20 @@ class NotificationController {
             res.status(500).json({ message: `Erro ao buscar infrações: ${error}`});
         }
     }
+
+    // PATCH TO UPDATE FIELDS
+    async update(req, res) {
+        const { autoDaInfracao } = req.params;
+        const updatedFields = req.body;
+        try {
+            await notificationRepository.updateById(autoDaInfracao, updatedFields);
+            res.status(200).json({ message: 'Infração atualizada com sucesso!' });
+        } catch (error) {
+            console.error(`Erro ao atualizar infração: ${error}`);
+            res.status(500).json({ message: `Erro ao atualizar infração: ${error}` });
+        }
+    }
+    
 }
 
 export default new NotificationController();
