@@ -70,7 +70,18 @@ class NotificationController {
             res.status(500).json({ message: `Erro ao atualizar infração: ${error}` });
         }
     }
-    
+
+    // DELETE A INFRINGEMENT
+    async delete(req, res) {
+        const { autoDaInfracao } = req.params;
+        try {
+            await notificationRepository.deleteById(autoDaInfracao);
+            res.status(200).json({ message: 'Infração deletada com sucesso!' });
+        } catch (error) {
+            console.error(`Erro ao deletar a infração: ${error}`);
+            res.status(500).json({ message: `Erro ao deletar a infração: ${error}` });
+        }
+    }
 }
 
 export default new NotificationController();

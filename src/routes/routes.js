@@ -11,5 +11,7 @@ router.post("/allInfringement/ID/:autoDaInfracao", NotificationController.showBy
 router.post('/allInfringement', NotificationController.store); // Create new infractions
 // PATCH
 router.patch('/allInfringement/PATCH/:autoDaInfracao', NotificationController.update); // Update fields
+// DELETE
+router.delete('/allInfringement/DELETE/:autoDaInfracao', NotificationController.delete); // Delete a infringement from the database
 
 export default router;

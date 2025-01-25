@@ -33,6 +33,12 @@ class NotificationRepository {
         const sqlMethod = `UPDATE infractions SET ${fields.map((field) => `${field} = ?`).join(', ')} WHERE autoDaInfracao = ?`;
         return databaseQuery(sqlMethod, [...values, autoDaInfracao]);
     }
+
+    // DELETE A INFRINGEMENT
+    deleteById(autoDaInfracao) {
+        const sqlMethod = "DELETE FROM infractions WHERE autoDaInfracao = ?";
+        return databaseQuery(sqlMethod, [autoDaInfracao]);
+    }
 }
 
 export default new NotificationRepository();
