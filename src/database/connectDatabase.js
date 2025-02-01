@@ -24,7 +24,7 @@ const databaseQuery = (sqlMethod, values = '') => {
     return new Promise((resolve, reject) => {
         db.query(sqlMethod, values, (error, result) => {
             if (error) {
-                return reject(mensagemReject);
+                return reject(error);
             }
             const resultData = JSON.parse(JSON.stringify(result));
             return resolve(resultData);

@@ -23,12 +23,10 @@ class NotificationRepository {
     filterBySpeedRange(minSpeed, maxSpeed, plate) {
         let sqlMethod = `SELECT * FROM infractions WHERE medicaoRealizadaKMH BETWEEN ? AND ?`;
         let params = [minSpeed, maxSpeed];
-
-        if (plate) {
-            sqlMethod += ' AND placa = ?';
+        if (plate !== 'undefined') {
+            sqlMethod += ` AND placa = ?`;
             params.push(plate);
         }
-
         return databaseQuery(sqlMethod, params);
     }
 
@@ -38,14 +36,13 @@ class NotificationRepository {
         return databaseQuery(sqlMethod, allDatas);
     }
 
-
     // PATCH TO UPDATE FIELDS
-    updateById(autoDaInfracao, updatedFields) {
-        const fields = Object.keys(updatedFields);
+    async updateById(autoDaInfracao, updatedFields) {
+        const columnNames = ["placa", "dataEnvio", "municipio", "uf", "marcaModelo", "cor", "especieTipo", "localDaInfracao", "nomeCondutor", "proprietario", "quadraLote", "naturezaDoVeiculo", "medicaoRealizadaKMH", "dataHoraDaInfracao", "valor", "fotoInfracao"];
         const values = Object.values(updatedFields);
-    
-        const sqlMethod = `UPDATE infractions SET ${fields.map((field) => `${field} = ?`).join(', ')} WHERE autoDaInfracao = ?`;
-        return databaseQuery(sqlMethod, [...values, autoDaInfracao]);
+        const sqlMethod = `UPDATE infractions SET ${columnNames.map((field) => `${field} = ?`).join(', ')} WHERE autoDaInfracao = ?`;
+        const queryValues = [...values, autoDaInfracao];
+        return databaseQuery(sqlMethod, queryValues);
     }
 
     // DELETE A INFRINGEMENT

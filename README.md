@@ -139,11 +139,17 @@ DB_NAME=sua_base_de_dados
 
 Agora que as dependências estão instaladas e as variáveis de ambiente configuradas, você pode iniciar o servidor.
 
-1. Execute o seguinte comando:
+1. Acesse a pasta source:
    ```bash
-   npm run dev
+   cd src
    ```
-2. Se tudo estiver configurado corretamente, o servidor estará rodando
+
+2. Execute o seguinte comando:
+   ```bash
+   node --watch server.js
+   ```
+
+3. Se tudo estiver configurado corretamente, o servidor estará rodando e irá aparecer uma mensagem de conexão bem sucedida com o banco de dados.
 
 ## ⚠️ Informações adicionais
 

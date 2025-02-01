@@ -8,6 +8,7 @@ import cors from 'cors';
 dotenv.config({path: '../.env'});
 
 const app = express();
+app.use(express.json());
 
 app.use(cors({
     origin: 'http://localhost:3000',
